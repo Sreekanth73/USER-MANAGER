@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>addUser</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    {{>headers}}
+    <h2>Add User</h2>
+    <form action="/addUser" method="POST">
+        <label for="text">Name:</label>
+        <input type="text" name="name" id="" value={{user.name}}><br>
+        <label for="text">email:</label>
+        <input type="text" name="email" id="" value={{user.email}}><br>
+        <label for="text">Password:</label>
+        <input type="text" name="password" id="" value={{user.password}}><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

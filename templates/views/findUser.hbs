@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>findUser</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    {{>headers}}
+    <h2>Search User</h2>
+    <form action="/users/findUser" method="get">
+        <label for="name">
+            Name
+        </label>
+        <input type="text" name="name" id="" value={{user.name}}>
+        <input type="submit" value="submit">
+        <p>Age:{{user.age}}</p>
+        <p>Name:{{user.name}}</p>
+        <p>Email:{{user.email}}</p>
+        <p>Password:{{user.password}}</p>
+
+    </form>
+</body>
+
+</html>
