@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    {{>headers}}
+    <a href="/users">users</a>
     <h2>Search User</h2>
     <form action="/users/findUser" method="get">
         <label for="name">
@@ -20,7 +20,7 @@
         <p>Age:{{user.age}}</p>
         <p>Name:{{user.name}}</p>
         <p>Email:{{user.email}}</p>
-        <p>Password:{{user.password}}</p>
+
 
     </form>
 </body>

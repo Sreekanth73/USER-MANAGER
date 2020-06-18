@@ -4,14 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signUp</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Edit User</title>
 </head>
 
 <body>
-    <h2>Add User</h2>
-    <form action="/signUp" method="POST">
-
+    <form action="/users/edit/{{user.id}}" method='post'>
         <label for="text">Name:</label>
         <input type="text" name="name" id="" value={{user.name}}><br>
         <label for="text">email:</label>
@@ -19,7 +16,6 @@
         <label for="text">Password:</label>
         <input type="text" name="password" id="" value={{user.password}}><br>
         <input type="submit" value="Submit"><br>
-        {{message}}
     </form>
 </body>
 

@@ -24,6 +24,10 @@
         <tr>
             <td>{{name}}</td>
             <td>{{email}}</td>
+            <td>
+                <a href="/users/edit/{{this._id}}">edit</a>
+                <a href="/users/delete/{{this._id}}" onclick="confirm('Are you sure want to delete')">delete</a>
+            </td>
         </tr>
         {{/each}}
 
