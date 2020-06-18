@@ -8,3 +8,7 @@ a {
   list-style-type: none;
   margin-right: 20px;
 }
+
+td {
+  border: 1px solid black;
+}

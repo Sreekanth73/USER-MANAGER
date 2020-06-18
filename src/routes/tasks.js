@@ -3,22 +3,28 @@ const router = new express.Router();
 const Task = require("../models/tasks");
 
 router.post("/tasks", async (req, res) => {
-  try {
-    const task = new Task(req.body);
-    await task.save();
-    res.status(201).send(task);
-  } catch (e) {
-    res.status(404).send(e);
-  }
+  res.send("Task created");
+  // try {
+  //   const task = new Task(req.body);
+  //   await task.save();
+  //   res.status(201).send(task);
+  // } catch (e) {
+  //   res.status(404).send(e);
+  // }
 });
 
 router.get("/tasks", async (req, res) => {
-  try {
-    const task = await Task.find();
-    res.status(200).send(task);
-  } catch (e) {
-    res.status(404).send(e);
-  }
+  res.send("All tasks created");
+  // try {
+  //   const task = await Task.find();
+  //   res.status(200).send(task);
+  // } catch (e) {
+  //   res.status(404).send(e);
+  // }
+});
+
+router.get("/tasks/new", async (req, res) => {
+  res.send("task added");
 });
 
 router.patch("/tasks/:id", async (req, res) => {

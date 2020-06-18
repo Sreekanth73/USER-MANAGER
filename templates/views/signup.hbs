@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>addUser</title>
+    <title>signUp</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
     {{>headers}}
     <h2>Add User</h2>
-    <form action="/addUser" method="POST">
+    <form action="/signUp" method="POST">
         <label for="text">Name:</label>
         <input type="text" name="name" id="" value={{user.name}}><br>
         <label for="text">email:</label>

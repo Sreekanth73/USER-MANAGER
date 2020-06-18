@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require("bcryptjs");
 
 const router = new express.Router();
 const User = require("../models/users");
@@ -7,15 +8,46 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
-router.post("/addUser", async (req, res) => {
+router.post("/signUp", async (req, res) => {
   const user = new User(req.body);
-  if (user !== null || user !== "") {
-    try {
-      res.redirect("/");
-      await user.save();
-    } catch (e) {
-      res.render("/");
+
+  try {
+    await user.save();
+    res.redirect("/login");
+  } catch (e) {
+    res.render("/signup");
+  }
+});
+
+router.post("/login", async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const user = await User.findOne({ email });
+  try {
+    if (!user) {
+      return res.render("login", {
+        message: "Unable to find user",
+      });
     }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.render("login", {
+        message: "Password does not match",
+      });
+    }
+    res.redirect("/users");
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
+router.get("/login", (req, res) => {
+  try {
+    res.render("login");
+  } catch (e) {
+    res.send({
+      error: "cannot login",
+    });
   }
 });
 
@@ -28,11 +60,11 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.get("/users/new", async (req, res) => {
+router.get("/signUp", async (req, res) => {
   try {
-    res.render("addUser");
+    res.render("signUp");
   } catch (e) {
-    res.status(404).send(e);
+    res.redirect("/");
   }
 });
 

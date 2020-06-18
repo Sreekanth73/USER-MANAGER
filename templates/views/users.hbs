@@ -10,14 +10,25 @@
 
 <body>
     <a href="/">Home Page</a>
-    <h4>Users</h4>
-    {{#each users}}
-    <p>{{name}}</p>
-    {{/each}}
-    <h4>Emails</h4>
-    {{#each users}}
-    <p>{{email}}</p>
-    {{/each}}
+    {{>headers}}
+    <h3>Users Page</h3>
+    <table>
+        <thead>
+            <th>
+                Users
+            </th>
+            <th>Emails</th>
+        </thead>
+
+        {{#each users}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{email}}</td>
+        </tr>
+        {{/each}}
+
+    </table>
+
 </body>
 
 </html>
