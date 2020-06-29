@@ -1,8 +1,14 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const auth = require("../middleware/auth");
 
 const router = new express.Router();
 const User = require("../models/users");
+
+if (typeof localStorage === "undefined" || localStorage === null) {
+  const LocalStorage = require("node-localstorage").LocalStorage;
+  localStorage = new LocalStorage("./scratch");
+}
 
 router.get("/", (req, res) => {
   res.render("index");
@@ -16,7 +22,7 @@ router.post("/signUp", async (req, res) => {
     res.redirect("/login");
   } catch (e) {
     res.render("signup", {
-      message: e.message,
+      message: "Email already exists ",
     });
   }
 });
@@ -37,6 +43,8 @@ router.post("/login", async (req, res) => {
         message: "Password does not match",
       });
     }
+    const token = await user.generateAuthToken();
+    localStorage.setItem("myToken", token);
     res.redirect("/users");
   } catch (error) {
     res.send(error.message);
@@ -53,9 +61,15 @@ router.get("/login", (req, res) => {
   }
 });
 
-router.get("/users", async (req, res) => {
+router.get("/logout", auth, (req, res) => {
+  localStorage.removeItem("myToken");
+  res.redirect("/");
+});
+
+router.get("/users", auth, async (req, res) => {
   try {
     const users = await User.find();
+    // res.send(req.user);
     res.render("users", { users });
   } catch (e) {
     res.send(e.message);
@@ -70,7 +84,7 @@ router.get("/signUp", async (req, res) => {
   }
 });
 
-router.get("/users/findUser", async (req, res) => {
+router.get("/users/findUser", auth, async (req, res) => {
   const name = new RegExp(req.query.name, "i");
   if (name !== null || name !== "") {
     try {
@@ -93,7 +107,7 @@ router.post("/users/edit/:id", async (req, res) => {
   }
 });
 
-router.get("/users/edit/:id", async (req, res) => {
+router.get("/users/edit/:id", auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     res.render("edit", { user });
@@ -102,7 +116,7 @@ router.get("/users/edit/:id", async (req, res) => {
   }
 });
 
-router.get("/users/delete/:id", async (req, res) => {
+router.get("/users/delete/:id", auth, async (req, res) => {
   try {
     const user = await User.findByIdAndRemove(req.params.id);
     res.redirect("/users");
