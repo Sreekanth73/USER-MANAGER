@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    {{>logout}}
     <form action="/users/edit/{{user.id}}" method='post'>
         <label for="text">Name:</label>
         <input type="text" name="name" id="" value={{user.name}}><br>
