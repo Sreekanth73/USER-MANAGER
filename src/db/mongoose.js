@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv").config();
+var url = process.env.DB_URL;
 
-mongoose.connect("mongodb://127.0.0.1:27017/crudApp", {
+mongoose.connect(url, {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,

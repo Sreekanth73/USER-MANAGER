@@ -4,7 +4,7 @@ const jwt_key = process.env.JWT_SECRET_KEY;
 
 const auth = async (req, res, next) => {
   try {
-    const token = localStorage.getItem("myToken");
+    const token = localStorage.getItem("Token");
     const decode = jwt.verify(token, jwt_key);
     const user = await User.findOne({ _id: decode._id });
     req.token = token;

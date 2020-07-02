@@ -33,15 +33,9 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
-    age: {
+    seq: {
       type: Number,
-      required: true,
-      default: 21,
-      validate(value) {
-        if (value < 0) {
-          throw new Error("Age cannot be below zero");
-        }
-      },
+      default: 0,
     },
     // tokens: [
     //   {
@@ -62,6 +56,16 @@ userSchema.pre("save", async function (next) {
   if (user.isModified("password")) {
     user.password = await bcrypt.hash(user.password, 8);
   }
+  User.findByIdAndUpdate({ _id: "user._id" }, { $inc: { seq: 1 } }, function (
+    error,
+    counter
+  ) {
+    if (error) {
+      return next(error);
+    }
+    user._id = counter.seq.toString();
+  });
+
   next();
 });
 

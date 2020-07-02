@@ -22,7 +22,7 @@ router.post("/signUp", async (req, res) => {
     res.redirect("/login");
   } catch (e) {
     res.render("signup", {
-      message: "Email already exists ",
+      message: e.message,
     });
   }
 });
@@ -44,10 +44,24 @@ router.post("/login", async (req, res) => {
       });
     }
     const token = await user.generateAuthToken();
-    localStorage.setItem("myToken", token);
+    localStorage.setItem("Token", token);
     res.redirect("/users");
   } catch (error) {
-    res.send(error.message);
+    res.render("login", {
+      message: e.message,
+    });
+  }
+});
+
+router.post("/users/edit/:id", async (req, res) => {
+  try {
+    const user = await User.findOneAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+    });
+    await user.save();
+    res.redirect("/users");
+  } catch (e) {
+    res.status(404).send(e);
   }
 });
 
@@ -93,17 +107,6 @@ router.get("/users/findUser", auth, async (req, res) => {
     } catch (e) {
       res.redirect("/");
     }
-  }
-});
-router.post("/users/edit/:id", async (req, res) => {
-  try {
-    const user = await User.findOneAndUpdate({ _id: req.params.id }, req.body, {
-      new: true,
-    });
-    await user.save();
-    res.redirect("/users");
-  } catch (e) {
-    res.status(404).send(e);
   }
 });
 
