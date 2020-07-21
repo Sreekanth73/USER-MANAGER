@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    return res.json({ message: "please Authenticate" });
+    return res.json({ message: "please Login" });
   }
 };
 

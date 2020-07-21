@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>users</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/users.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -13,58 +13,42 @@
 
 <body>
     <div class="container">
-        <a href="/">Home Page</a>
-        {{>logout}}
-        <h3>Users Page</h3>
-        <table class="table table-borderless">
-            <thead>
-                <tr>
-                    <th scope='col'>S.No</th>
-                    <th scope="col">Users</th>
-                    <th scope="col">Emails</th>
-                    <th scope="col">Options</th>
+        <button class="btn btn-success home"> <a href="/">Home Page</a></button>
+        <button class="btn btn-info logout">{{>logout}}</button>
+        <div class="content">
 
-                </tr>
-            </thead>
-            <tbody>
-                {{#each users}}
-                <tr>
-                    <th scope="row">1</th>
-                    <td>{{name}}</td>
-                    <td>{{email}}</td>
-                    <td>
-                        <a href="/users/edit/{{this._id}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                        <a href="/users/delete/{{this._id}}" onclick="confirm('Are you sure want to delete')"><i
-                                class="fa fa-trash-o" aria-hidden="true"></i>
-                        </a>
-                    </td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+            <h3>Users Page</h3>
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th scope='col'>Profile</th>
+                        <th scope="col">Users</th>
+                        <th scope="col">Emails</th>
+                        <th scope="col">Options</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each users}}
+                    <tr>
+                        {{#if image}}
+                        <td><img src="./uploads/{{image}}" alt="image" width="50px" height="50px"></td>
+                        {{/if}}
+                        <td>{{name}}</td>
+                        <td>{{email}}</td>
+                        <td>
+                            <a href="/users/edit/{{this._id}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="/users/delete/{{this._id}}" onclick="confirm('Are you sure want to delete')"><i
+                                    class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
-    {{!-- <table>
-        <thead>
-            <th>
-                Users
-            </th>
-            <th>Emails</th>
-        </thead>
 
-        {{#each users}}
-        <tr>
-            <td>{{name}}</td>
-            <td>{{email}}</td>
-            <td>
-                <a href="/users/edit/{{this._id}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                <a href="/users/delete/{{this._id}}" onclick="confirm('Are you sure want to delete')"><i
-                        class="fa fa-trash-o" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
-        {{/each}}
-
-    </table> --}}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>

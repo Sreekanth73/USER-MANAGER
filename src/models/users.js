@@ -33,9 +33,9 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
-    seq: {
-      type: Number,
-      default: 0,
+    image: {
+      type: String,
+      required: true,
     },
     // tokens: [
     //   {
@@ -56,16 +56,6 @@ userSchema.pre("save", async function (next) {
   if (user.isModified("password")) {
     user.password = await bcrypt.hash(user.password, 8);
   }
-  User.findByIdAndUpdate({ _id: "user._id" }, { $inc: { seq: 1 } }, function (
-    error,
-    counter
-  ) {
-    if (error) {
-      return next(error);
-    }
-    user._id = counter.seq.toString();
-  });
-
   next();
 });
 

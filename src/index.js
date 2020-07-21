@@ -1,5 +1,4 @@
 const express = require("express");
-const jwt = require("jsonwebtoken");
 require("./db/mongoose");
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../.env") });

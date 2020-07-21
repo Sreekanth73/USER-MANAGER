@@ -5,19 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/edit.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 
 <body>
-    {{>logout}}
+
     <div class="container">
-        <div class="main-content">
-            <form action="/users/edit/{{user.id}}" method="post">
+        <button class="btn btn-info logoutBtn">{{>logout}}</button>
+        <div class="content">
+            <form action="/users/edit/{{user.id}}" method="post" enctype="multipart/form-data">
+                {{#if message}}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{/if}}
+
                 <div class="form-group">
                     <label for="Name">Name</label>
                     <input type="text" class="form-control" name="name" value={{user.name}}>
+                </div>
+                <img src="./uploads/{{user.image}}" alt="image" width="50px" height="50px">
+                <div class="form-group">
+                    <label for="name">Update Profile</label>
+                    <input type="file" class="form-control" name="image">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
